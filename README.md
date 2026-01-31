@@ -1,1 +1,0 @@
-# tourism-api-2026
