@@ -215,6 +215,16 @@ public class AdminServiceImpl implements AdminService {
     public void createTourGuide(String adminSessionCode, CreateTourGuideRequest rq) {
 
         try {
+            if(adminSessionCode.trim().isEmpty()) {
+                log.debug("admin session code cannot be empty");
+                throw new AdminSignOutFailedException("admin session code cannot be empty");
+            }
+        } catch (NullPointerException e) {
+            log.debug("admin session code cannot be empty");
+            throw new AdminSignOutFailedException("admin session code cannot be empty");
+        }
+
+        try {
             if(rq.getUsername().trim().isEmpty()) {
                 log.debug("username cannot be empty");
                 throw new TourGuideNotCreatedException("username cannot be empty");
