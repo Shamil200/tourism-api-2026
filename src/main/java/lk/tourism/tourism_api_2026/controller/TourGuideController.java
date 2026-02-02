@@ -1,6 +1,5 @@
 package lk.tourism.tourism_api_2026.controller;
 
-import lk.tourism.tourism_api_2026.controller.request.CreateTourGuideRequest;
 import lk.tourism.tourism_api_2026.controller.request.CreateTravelPackageRequest;
 import lk.tourism.tourism_api_2026.controller.request.TourGuideSignInRequest;
 import lk.tourism.tourism_api_2026.controller.request.TourGuideSignOutRequest;
