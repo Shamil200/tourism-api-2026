@@ -43,6 +43,16 @@ public class TravelPackageServiceImpl implements TravelPackageService {
     @Transactional(rollbackFor = {Exception.class})
     public void create(String tourGuideSessionCode, CreateTravelPackageRequest rq) {
 
+        try {
+            if(tourGuideSessionCode.trim().isEmpty()) {
+                log.debug("tour guide session code cannot be empty");
+                throw new TravelPackageNotCreatedException("tour guide session cannot be empty");
+            }
+        } catch (NullPointerException e) {
+            log.debug("tour guide session code cannot be empty");
+            throw new TravelPackageNotCreatedException("tour guide session cannot be empty");
+        }
+
         Boolean isValidSessionAndLogin = sessionExistBySessionCodeSessionStateUserTypeAndCredentialsState(tourGuideSessionCode, "ACTIVE", "TOUR_GUIDE", "ACTIVE");
 
         if(!isValidSessionAndLogin){
