@@ -1,0 +1,153 @@
+package lk.tourism.tourism_api_2026.service.impl;
+
+import lk.tourism.tourism_api_2026.controller.request.CreateTravelPackageRequest;
+import lk.tourism.tourism_api_2026.controller.request.TravelPackageDetailForRequest;
+import lk.tourism.tourism_api_2026.exception.TravelPackageNotCreatedException;
+import lk.tourism.tourism_api_2026.model.Session;
+import lk.tourism.tourism_api_2026.model.TravelPackage;
+import lk.tourism.tourism_api_2026.model.TravelPackageDetail;
+import lk.tourism.tourism_api_2026.repository.SessionRepository;
+import lk.tourism.tourism_api_2026.repository.TravelPackageDetailRepository;
+import lk.tourism.tourism_api_2026.repository.TravelPackageRepository;
+import lk.tourism.tourism_api_2026.repository.UserRepository;
+import lk.tourism.tourism_api_2026.service.TravelPackageService;
+import lk.tourism.tourism_api_2026.utilities.GeneralUtilities;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Slf4j
+@Service
+@Primary
+@AllArgsConstructor
+public class TravelPackageServiceImpl implements TravelPackageService {
+
+    private UserRepository userRepository;
+    private SessionRepository sessionRepository;
+    private TravelPackageRepository travelPackageRepository;
+    private TravelPackageDetailRepository travelPackageDetailRepository;
+
+    @Override
+    public Boolean sessionExistBySessionCodeSessionStateUserTypeAndCredentialsState(String sessionCode, String sessionState, String userType, String credentialsState) {
+
+        Session session = sessionRepository.findBySessionCodeAndSessionState(sessionCode, GeneralUtilities.getSessionState(sessionState));
+
+        Boolean userExists = userRepository.existsByUserTypeAndCredentialsStateAndId(GeneralUtilities.getUserType(userType), GeneralUtilities.getCredentialsState(credentialsState), session.getUserId());
+
+        return userExists == true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public void create(String tourGuideSessionCode, CreateTravelPackageRequest rq) {
+
+        Boolean isValidSessionAndLogin = sessionExistBySessionCodeSessionStateUserTypeAndCredentialsState(tourGuideSessionCode, "ACTIVE", "TOUR_GUIDE", "ACTIVE");
+
+        if(!isValidSessionAndLogin){
+            log.debug("provided session code is invalid");
+            throw new TravelPackageNotCreatedException("provided session code is invalid");
+        }
+
+        try {
+            if(rq.getName().trim().isEmpty()) {
+                log.debug("name cannot be empty");
+                throw new TravelPackageNotCreatedException("name cannot be empty");
+            }
+        } catch (NullPointerException e) {
+            log.debug("name cannot be empty");
+            throw new TravelPackageNotCreatedException("name cannot be empty");
+        }
+
+        if(rq.getPeopleCount() <= 0) {
+            log.debug("people count must be greater than 0");
+            throw new TravelPackageNotCreatedException("people count must be greater than 0");
+        }
+
+        try {
+            if(rq.getDuration().trim().isEmpty()) {
+                log.debug("duration cannot be empty");
+                throw new TravelPackageNotCreatedException("duration cannot be empty");
+            }
+        } catch (NullPointerException e) {
+            log.debug("duration cannot be empty");
+            throw new TravelPackageNotCreatedException("duration cannot be empty");
+        }
+
+        if(rq.getTotalPrice() <= 0) {
+            log.debug("total price must be greater than 0");
+            throw new TravelPackageNotCreatedException("total price must be greater than 0");
+        }
+
+        if(rq.getAdmissionPercentage() <= 0) {
+            log.debug("admission percentage must be greater than 0");
+            throw new TravelPackageNotCreatedException("admission percentage must be greater than 0");
+        }
+
+        TravelPackage travelPackage = new TravelPackage(
+                rq.getName(),
+                rq.getPeopleCount(),
+                rq.getDuration(),
+                rq.getTotalPrice(),
+                rq.getAdmissionPercentage()
+        );
+
+        TravelPackage savedTravelPackage;
+
+        try {
+            savedTravelPackage = travelPackageRepository.save(travelPackage);
+        } catch (RuntimeException e) {
+            throw new TravelPackageNotCreatedException(e.getMessage());
+        }
+
+        for(TravelPackageDetailForRequest dto : rq.getVisitingLocations()) {
+
+            try {
+                if(dto.getTitle().trim().isEmpty()) {
+                    log.debug("title cannot be empty");
+                    throw new TravelPackageNotCreatedException("title cannot be empty");
+                }
+            } catch (NullPointerException e) {
+                log.debug("title cannot be empty");
+                throw new TravelPackageNotCreatedException("title cannot be empty");
+            }
+
+            try {
+                if(dto.getDescription().trim().isEmpty()) {
+                    log.debug("description cannot be empty");
+                    throw new TravelPackageNotCreatedException("description cannot be empty");
+                }
+            } catch (NullPointerException e) {
+                log.debug("description cannot be empty");
+                throw new TravelPackageNotCreatedException("description cannot be empty");
+            }
+
+            try {
+                if(dto.getUrl().trim().isEmpty()) {
+                    log.debug("url cannot be empty");
+                    throw new TravelPackageNotCreatedException("url cannot be empty");
+                }
+            } catch (NullPointerException e) {
+                log.debug("url cannot be empty");
+                throw new TravelPackageNotCreatedException("url cannot be empty");
+            }
+
+            TravelPackageDetail travelPackageDetail = new TravelPackageDetail(
+                    dto.getTitle(),
+                    dto.getDescription(),
+                    dto.getUrl(),
+                    savedTravelPackage
+            );
+
+            try {
+                travelPackageDetailRepository.save(travelPackageDetail);
+            } catch (RuntimeException e) {
+                throw new TravelPackageNotCreatedException(e.getMessage());
+            }
+
+        }
+
+    }
+
+}

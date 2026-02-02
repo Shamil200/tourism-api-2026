@@ -1,6 +1,7 @@
 package lk.tourism.tourism_api_2026.repository;
 
 import lk.tourism.tourism_api_2026.model.User;
+import lk.tourism.tourism_api_2026.model.enums.CredentialsState;
 import lk.tourism.tourism_api_2026.model.enums.UserType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -16,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByIdAndUserType(Long id, UserType userType);
 
     User findByUsername(String username);
+
+    Boolean existsByUserTypeAndCredentialsStateAndId(UserType userType, CredentialsState credentialsState, Long id);
 }

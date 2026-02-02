@@ -32,9 +32,10 @@ public class TravelPackage {
     @OneToMany(mappedBy = "travelPackage")
     private List<TravelPackageDetail> travelPackageDetailList;
 
-    public TravelPackage(String name, Integer memberCount, Double totalPrice, Float reservationAdmissionPercentage) {
+    public TravelPackage(String name, Integer memberCount, String estimatedDuration, Double totalPrice, Float reservationAdmissionPercentage) {
         this.name = name;
         this.memberCount = memberCount;
+        this.estimatedDuration = estimatedDuration;
         this.totalPrice = totalPrice;
         this.reservationAdmissionPercentage = reservationAdmissionPercentage;
 
