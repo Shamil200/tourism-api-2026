@@ -44,7 +44,7 @@ public class TourGuideController {
     }
 
     @PostMapping(value = "/{tour-guide-session-code}/create-travel-package", headers = "X-Api-Version=v1")
-    void addTourGuideV1(@PathVariable("tour-guide-session-code") String tourGuideSessionCode, @RequestBody CreateTravelPackageRequest rq){
+    void addTravelPackageV1(@PathVariable("tour-guide-session-code") String tourGuideSessionCode, @RequestBody CreateTravelPackageRequest rq){
         log.trace("received path variable : {}", tourGuideSessionCode);
         log.trace("received request : {}", rq);
         travelPackageService.create(tourGuideSessionCode, rq);
