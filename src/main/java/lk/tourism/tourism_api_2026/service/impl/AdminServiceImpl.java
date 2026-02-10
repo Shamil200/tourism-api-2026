@@ -9,7 +9,7 @@ import lk.tourism.tourism_api_2026.repository.UserRepository;
 import lk.tourism.tourism_api_2026.service.AdminService;
 import lk.tourism.tourism_api_2026.utilities.GeneralUtilities;
 import lk.tourism.tourism_api_2026.utilities.Sha256HashUtility;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Primary
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    private UserRepository userRepository;
-    private SessionRepository sessionRepository;
+    private final UserRepository userRepository;
+    private final SessionRepository sessionRepository;
 
     @Override
     public Boolean isExistByUsername(String username) {

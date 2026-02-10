@@ -12,7 +12,7 @@ import lk.tourism.tourism_api_2026.repository.TravelPackageRepository;
 import lk.tourism.tourism_api_2026.repository.UserRepository;
 import lk.tourism.tourism_api_2026.service.TravelPackageService;
 import lk.tourism.tourism_api_2026.utilities.GeneralUtilities;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -21,13 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Primary
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TravelPackageServiceImpl implements TravelPackageService {
 
-    private UserRepository userRepository;
-    private SessionRepository sessionRepository;
-    private TravelPackageRepository travelPackageRepository;
-    private TravelPackageDetailRepository travelPackageDetailRepository;
+    private final UserRepository userRepository;
+    private final SessionRepository sessionRepository;
+    private final TravelPackageRepository travelPackageRepository;
+    private final TravelPackageDetailRepository travelPackageDetailRepository;
 
     @Override
     public Boolean sessionExistBySessionCodeSessionStateUserTypeAndCredentialsState(String sessionCode, String sessionState, String userType, String credentialsState) {

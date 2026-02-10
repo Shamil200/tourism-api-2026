@@ -11,7 +11,7 @@ import lk.tourism.tourism_api_2026.repository.UserRepository;
 import lk.tourism.tourism_api_2026.service.TourGuideService;
 import lk.tourism.tourism_api_2026.utilities.GeneralUtilities;
 import lk.tourism.tourism_api_2026.utilities.Sha256HashUtility;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @Primary
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TourGuideServiceImpl implements TourGuideService {
 
-    private UserRepository userRepository;
-    private SessionRepository sessionRepository;
+    private final UserRepository userRepository;
+    private final SessionRepository sessionRepository;
 
     @Override
     public Boolean isExistByUsername(String username) {

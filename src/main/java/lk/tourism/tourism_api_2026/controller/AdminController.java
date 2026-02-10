@@ -5,17 +5,17 @@ import lk.tourism.tourism_api_2026.controller.response.AdminSignInResponse;
 import lk.tourism.tourism_api_2026.controller.response.AdminSignOutResponse;
 import lk.tourism.tourism_api_2026.controller.response.MakeTourGuideInactiveResponse;
 import lk.tourism.tourism_api_2026.service.AdminService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/admins")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AdminController {
 
-    private AdminService adminService;
+    private final AdminService adminService;
 
     @PostMapping(headers = "X-Api-Version=v1")
     void addAdminV1(@RequestBody CreateAdminRequest rq){

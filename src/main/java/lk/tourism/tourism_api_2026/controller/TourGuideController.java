@@ -7,18 +7,18 @@ import lk.tourism.tourism_api_2026.controller.response.TourGuideSignInResponse;
 import lk.tourism.tourism_api_2026.controller.response.TourGuideSignOutResponse;
 import lk.tourism.tourism_api_2026.service.TourGuideService;
 import lk.tourism.tourism_api_2026.service.TravelPackageService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/tour-guides")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TourGuideController {
 
-    private TourGuideService tourGuideService;
-    private TravelPackageService travelPackageService;
+    private final TourGuideService tourGuideService;
+    private final TravelPackageService travelPackageService;
 
     @PostMapping(value = "/sign-in", headers = "X-Api-Version=v1")
     TourGuideSignInResponse tourGuideSignInV1(@RequestBody TourGuideSignInRequest rq){
