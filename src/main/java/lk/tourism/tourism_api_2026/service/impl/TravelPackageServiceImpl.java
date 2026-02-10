@@ -18,6 +18,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Slf4j
 @Service
 @Primary
@@ -99,7 +102,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
                 rq.getName(),
                 rq.getPeopleCount(),
                 rq.getDuration(),
-                rq.getTotalPrice(),
+                BigDecimal.valueOf(rq.getTotalPrice()).setScale(2, RoundingMode.HALF_UP),
                 rq.getAdmissionPercentage()
         );
 
