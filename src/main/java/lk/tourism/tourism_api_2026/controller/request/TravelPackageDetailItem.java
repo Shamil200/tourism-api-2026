@@ -6,7 +6,7 @@ import tools.jackson.databind.annotation.JsonNaming;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class TravelPackageDetailForRequest {
+public class TravelPackageDetailItem {
 
     private String title;
     private String description;

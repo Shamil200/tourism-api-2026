@@ -15,6 +15,6 @@ public class CreateTravelPackageRequest {
     private String duration;
     private Double totalPrice;
     private Float admissionPercentage;
-    private List<TravelPackageDetailForRequest> visitingLocations;
+    private List<TravelPackageDetailItem> visitingLocations;
 
 }

@@ -1,7 +1,7 @@
 package lk.tourism.tourism_api_2026.service.impl;
 
 import lk.tourism.tourism_api_2026.controller.request.CreateTravelPackageRequest;
-import lk.tourism.tourism_api_2026.controller.request.TravelPackageDetailForRequest;
+import lk.tourism.tourism_api_2026.controller.request.TravelPackageDetailItem;
 import lk.tourism.tourism_api_2026.exception.TravelPackageNotCreatedException;
 import lk.tourism.tourism_api_2026.model.Session;
 import lk.tourism.tourism_api_2026.model.TravelPackage;
@@ -111,10 +111,10 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             throw new TravelPackageNotCreatedException(e.getMessage());
         }
 
-        for(TravelPackageDetailForRequest dto : rq.getVisitingLocations()) {
+        for(TravelPackageDetailItem item : rq.getVisitingLocations()) {
 
             try {
-                if(dto.getTitle().trim().isEmpty()) {
+                if(item.getTitle().trim().isEmpty()) {
                     log.debug("title cannot be empty");
                     throw new TravelPackageNotCreatedException("title cannot be empty");
                 }
@@ -124,7 +124,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             }
 
             try {
-                if(dto.getDescription().trim().isEmpty()) {
+                if(item.getDescription().trim().isEmpty()) {
                     log.debug("description cannot be empty");
                     throw new TravelPackageNotCreatedException("description cannot be empty");
                 }
@@ -134,7 +134,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             }
 
             try {
-                if(dto.getUrl().trim().isEmpty()) {
+                if(item.getUrl().trim().isEmpty()) {
                     log.debug("url cannot be empty");
                     throw new TravelPackageNotCreatedException("url cannot be empty");
                 }
@@ -144,9 +144,9 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             }
 
             TravelPackageDetail travelPackageDetail = new TravelPackageDetail(
-                    dto.getTitle(),
-                    dto.getDescription(),
-                    dto.getUrl(),
+                    item.getTitle(),
+                    item.getDescription(),
+                    item.getUrl(),
                     savedTravelPackage
             );
 
