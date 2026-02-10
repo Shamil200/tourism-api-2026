@@ -5,6 +5,7 @@ import lk.tourism.tourism_api_2026.model.enums.TravelPackageStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class TravelPackage {
     private String name;
     private Integer memberCount;
     private String estimatedDuration;
-    private Double totalPrice;
+    private BigDecimal totalPrice;
     private Float reservationAdmissionPercentage;
 
     @Enumerated(EnumType.STRING)
@@ -32,7 +33,7 @@ public class TravelPackage {
     @OneToMany(mappedBy = "travelPackage")
     private List<TravelPackageDetail> travelPackageDetailList;
 
-    public TravelPackage(String name, Integer memberCount, String estimatedDuration, Double totalPrice, Float reservationAdmissionPercentage) {
+    public TravelPackage(String name, Integer memberCount, String estimatedDuration, BigDecimal totalPrice, Float reservationAdmissionPercentage) {
         this.name = name;
         this.memberCount = memberCount;
         this.estimatedDuration = estimatedDuration;

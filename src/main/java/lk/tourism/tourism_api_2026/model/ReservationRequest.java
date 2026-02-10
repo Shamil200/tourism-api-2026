@@ -9,6 +9,7 @@ import lk.tourism.tourism_api_2026.utilities.CurrentDateTimeUtility;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -26,8 +27,8 @@ public class ReservationRequest {
     private LocalDate checkOutDate;
     private LocalDate reservationAddedDate;
     private LocalTime reservationAddedTime;
-    private Double reservationAdmissionPayment;
-    private Double reservationRemainingPayment;
+    private BigDecimal reservationAdmissionPayment;
+    private BigDecimal reservationRemainingPayment;
 
     @Enumerated(EnumType.STRING)
     private ReservationPaymentStatus reservationPaymentStatus;
@@ -45,7 +46,7 @@ public class ReservationRequest {
     @JoinColumn(name = "package_id")
     private TravelPackage travelPackage;
 
-    public ReservationRequest(LocalDate checkInDate, LocalDate checkOutDate, Double reservationAdmissionPayment, Double reservationRemainingPayment, TravelPackage travelPackage) {
+    public ReservationRequest(LocalDate checkInDate, LocalDate checkOutDate, BigDecimal reservationAdmissionPayment, BigDecimal reservationRemainingPayment, TravelPackage travelPackage) {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.reservationAdmissionPayment = reservationAdmissionPayment;
