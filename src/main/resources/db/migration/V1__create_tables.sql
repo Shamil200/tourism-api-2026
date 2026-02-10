@@ -24,7 +24,7 @@ CREATE TABLE travel_packages (
                                  name VARCHAR(255),
                                  member_count INTEGER,
                                  estimated_duration VARCHAR(255),
-                                 total_price DOUBLE,
+                                 total_price DECIMAL(38,2),
                                  reservation_admission_percentage FLOAT,
                                  travel_package_status VARCHAR(50)
 );
@@ -48,8 +48,8 @@ CREATE TABLE reservation_requests (
                                       check_out_date DATE,
                                       reservation_added_date DATE,
                                       reservation_added_time TIME,
-                                      reservation_admission_payment DOUBLE,
-                                      reservation_remaining_payment DOUBLE,
+                                      reservation_admission_payment DECIMAL(38,2),
+                                      reservation_remaining_payment DECIMAL(38,2),
                                       reservation_payment_status VARCHAR(50),
                                       tour_guide_response_status VARCHAR(50),
                                       tour_status VARCHAR(50),
