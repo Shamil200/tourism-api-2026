@@ -1,5 +1,6 @@
 package lk.tourism.tourism_api_2026.controller;
 
+import jakarta.validation.Valid;
 import lk.tourism.tourism_api_2026.controller.request.*;
 import lk.tourism.tourism_api_2026.controller.response.AdminSignInResponse;
 import lk.tourism.tourism_api_2026.controller.response.AdminSignOutResponse;
@@ -18,14 +19,14 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping(headers = "X-Api-Version=v1")
-    void addAdminV1(@RequestBody CreateAdminRequest rq){
+    void addAdminV1(@Valid @RequestBody CreateAdminRequest rq){
         log.trace("received request : {}", rq);
         adminService.create(rq);
 
     }
 
     @PostMapping(value = "/sign-in", headers = "X-Api-Version=v1")
-    AdminSignInResponse adminSignInV1(@RequestBody AdminSignInRequest rq){
+    AdminSignInResponse adminSignInV1(@Valid @RequestBody AdminSignInRequest rq){
         log.trace("received request : {}", rq);
 
         return AdminSignInResponse
@@ -36,7 +37,7 @@ public class AdminController {
     }
 
     @PutMapping(value = "/sign-out", headers = "X-Api-Version=v1")
-    AdminSignOutResponse adminSignOutV1(@RequestBody AdminSignOutRequest rq){
+    AdminSignOutResponse adminSignOutV1(@Valid @RequestBody AdminSignOutRequest rq){
         log.trace("received request : {}", rq);
 
         return AdminSignOutResponse
@@ -47,7 +48,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/{admin-session-code}/tour-guides", headers = "X-Api-Version=v1")
-    void addTourGuideV1(@PathVariable("admin-session-code") String adminSessionCode, @RequestBody CreateTourGuideRequest rq){
+    void addTourGuideV1(@PathVariable("admin-session-code") String adminSessionCode,@Valid @RequestBody CreateTourGuideRequest rq){
         log.trace("received path variable : {}", adminSessionCode);
         log.trace("received request : {}", rq);
         adminService.createTourGuide(adminSessionCode, rq);
@@ -55,7 +56,7 @@ public class AdminController {
     }
 
     @PutMapping(value = "/{admin-session-code}/tour-guides/make-tour-guide-inactive", headers = "X-Api-Version=v1")
-    MakeTourGuideInactiveResponse makeTourGuideInactiveV1(@PathVariable("admin-session-code") String adminSessionCode, @RequestBody MakeTourGuideInactiveRequest rq){
+    MakeTourGuideInactiveResponse makeTourGuideInactiveV1(@PathVariable("admin-session-code") String adminSessionCode,@Valid @RequestBody MakeTourGuideInactiveRequest rq){
         log.trace("received path variable : {}", adminSessionCode);
         log.trace("received request : {}", rq);
 

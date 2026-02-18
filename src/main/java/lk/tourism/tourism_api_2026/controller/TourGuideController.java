@@ -1,5 +1,6 @@
 package lk.tourism.tourism_api_2026.controller;
 
+import jakarta.validation.Valid;
 import lk.tourism.tourism_api_2026.controller.request.CreateTravelPackageRequest;
 import lk.tourism.tourism_api_2026.controller.request.TourGuideSignInRequest;
 import lk.tourism.tourism_api_2026.controller.request.TourGuideSignOutRequest;
@@ -21,7 +22,7 @@ public class TourGuideController {
     private final TravelPackageService travelPackageService;
 
     @PostMapping(value = "/sign-in", headers = "X-Api-Version=v1")
-    TourGuideSignInResponse tourGuideSignInV1(@RequestBody TourGuideSignInRequest rq){
+    TourGuideSignInResponse tourGuideSignInV1(@Valid @RequestBody TourGuideSignInRequest rq){
         log.trace("received request : {}", rq);
 
         return TourGuideSignInResponse
@@ -32,7 +33,7 @@ public class TourGuideController {
     }
 
     @PutMapping(value = "/sign-out", headers = "X-Api-Version=v1")
-    TourGuideSignOutResponse tourGuideSignOutV1(@RequestBody TourGuideSignOutRequest rq){
+    TourGuideSignOutResponse tourGuideSignOutV1(@Valid @RequestBody TourGuideSignOutRequest rq){
         log.trace("received request : {}", rq);
 
         return TourGuideSignOutResponse
@@ -43,7 +44,7 @@ public class TourGuideController {
     }
 
     @PostMapping(value = "/{tour-guide-session-code}/create-travel-package", headers = "X-Api-Version=v1")
-    void addTravelPackageV1(@PathVariable("tour-guide-session-code") String tourGuideSessionCode, @RequestBody CreateTravelPackageRequest rq){
+    void addTravelPackageV1(@PathVariable("tour-guide-session-code") String tourGuideSessionCode,@Valid @RequestBody CreateTravelPackageRequest rq){
         log.trace("received path variable : {}", tourGuideSessionCode);
         log.trace("received request : {}", rq);
         travelPackageService.create(tourGuideSessionCode, rq);
