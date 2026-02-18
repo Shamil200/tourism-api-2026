@@ -1,6 +1,8 @@
 package lk.tourism.tourism_api_2026.controller.request;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import tools.jackson.databind.PropertyNamingStrategies;
 import tools.jackson.databind.annotation.JsonNaming;
@@ -26,7 +28,8 @@ public class CreateTravelPackageRequest {
     @NotBlank(message = "admission percentage cannot be empty")
     private Float admissionPercentage;
 
-    @NotBlank(message = "visiting locations cannot be empty")
+    @NotEmpty(message = "visiting locations cannot be empty")
+    @Valid
     private List<TravelPackageDetailItem> visitingLocations;
 
 }
