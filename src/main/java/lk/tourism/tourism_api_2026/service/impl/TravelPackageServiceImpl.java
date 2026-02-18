@@ -46,12 +46,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
     @Transactional(rollbackFor = {Exception.class})
     public void create(String tourGuideSessionCode, CreateTravelPackageRequest rq) {
 
-        try {
-            if(tourGuideSessionCode.trim().isEmpty()) {
-                log.debug("tour guide session code cannot be empty");
-                throw new TravelPackageNotCreatedException("tour guide session cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(tourGuideSessionCode.trim().isEmpty()) {
             log.debug("tour guide session code cannot be empty");
             throw new TravelPackageNotCreatedException("tour guide session cannot be empty");
         }
@@ -63,12 +58,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             throw new TravelPackageNotCreatedException("provided session code is invalid");
         }
 
-        try {
-            if(rq.getName().trim().isEmpty()) {
-                log.debug("name cannot be empty");
-                throw new TravelPackageNotCreatedException("name cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getName().trim().isEmpty()) {
             log.debug("name cannot be empty");
             throw new TravelPackageNotCreatedException("name cannot be empty");
         }
@@ -78,12 +68,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             throw new TravelPackageNotCreatedException("people count must be greater than 0");
         }
 
-        try {
-            if(rq.getDuration().trim().isEmpty()) {
-                log.debug("duration cannot be empty");
-                throw new TravelPackageNotCreatedException("duration cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getDuration().trim().isEmpty()) {
             log.debug("duration cannot be empty");
             throw new TravelPackageNotCreatedException("duration cannot be empty");
         }

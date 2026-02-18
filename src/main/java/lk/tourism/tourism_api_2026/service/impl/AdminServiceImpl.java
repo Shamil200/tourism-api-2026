@@ -65,22 +65,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void create(CreateAdminRequest rq) {
 
-        try {
-            if(rq.getUsername().trim().isEmpty()) {
-                log.debug("username cannot be empty , username : {}", rq.getUsername());
-                throw new AdminNotCreatedException("username cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getUsername().trim().isEmpty()) {
             log.debug("username cannot be empty , username : {}", rq.getUsername());
             throw new AdminNotCreatedException("username cannot be empty");
         }
 
-        try {
-            if(rq.getPassword().trim().isEmpty()) {
-                log.debug("password cannot be empty , password : {}", rq.getPassword());
-                throw new AdminNotCreatedException("password cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getPassword().trim().isEmpty()) {
             log.debug("password cannot be empty , password : {}", rq.getPassword());
             throw new AdminNotCreatedException("password cannot be empty");
         }
@@ -116,22 +106,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Session signIn(AdminSignInRequest rq) {
 
-        try {
-            if(rq.getUsername().trim().isEmpty()) {
-                log.debug("username cannot be empty");
-                throw new AdminSignInFailedException("username cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getUsername().trim().isEmpty()) {
             log.debug("username cannot be empty");
             throw new AdminSignInFailedException("username cannot be empty");
         }
 
-        try {
-            if(rq.getPassword().trim().isEmpty()) {
-                log.debug("password cannot be empty");
-                throw new AdminSignInFailedException("password cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getPassword().trim().isEmpty()) {
             log.debug("password cannot be empty");
             throw new AdminSignInFailedException("password cannot be empty");
         }
@@ -171,12 +151,7 @@ public class AdminServiceImpl implements AdminService {
     @Transactional(rollbackFor = {Exception.class})
     public Boolean signOut(AdminSignOutRequest rq) {
 
-        try {
-            if(rq.getSessionCode().trim().isEmpty()) {
-                log.debug("session code cannot be empty");
-                throw new AdminSignOutFailedException("session code cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getSessionCode().trim().isEmpty()) {
             log.debug("session code cannot be empty");
             throw new AdminSignOutFailedException("session code cannot be empty");
         }
@@ -214,42 +189,22 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void createTourGuide(String adminSessionCode, CreateTourGuideRequest rq) {
 
-        try {
-            if(adminSessionCode.trim().isEmpty()) {
-                log.debug("admin session code cannot be empty");
-                throw new AdminSignOutFailedException("admin session code cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(adminSessionCode.trim().isEmpty()) {
             log.debug("admin session code cannot be empty");
             throw new AdminSignOutFailedException("admin session code cannot be empty");
         }
 
-        try {
-            if(rq.getUsername().trim().isEmpty()) {
-                log.debug("username cannot be empty");
-                throw new TourGuideNotCreatedException("username cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getUsername().trim().isEmpty()) {
             log.debug("username cannot be empty");
             throw new TourGuideNotCreatedException("username cannot be empty");
         }
 
-        try {
-            if(rq.getPassword().trim().isEmpty()) {
-                log.debug("password cannot be empty");
-                throw new TourGuideNotCreatedException("password cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getPassword().trim().isEmpty()) {
             log.debug("password cannot be empty");
             throw new TourGuideNotCreatedException("password cannot be empty");
         }
 
-        try {
-            if(findSessionBySessionCodeSessionStateAndUserType(adminSessionCode, "ACTIVE", "ADMIN") == null){
-                log.debug("provided admin session code is invalid");
-                throw new TourGuideNotCreatedException("provided admin session code is invalid");
-            }
-        } catch (NullPointerException e) {
+        if(findSessionBySessionCodeSessionStateAndUserType(adminSessionCode, "ACTIVE", "ADMIN") == null){
             log.debug("provided admin session code is invalid");
             throw new TourGuideNotCreatedException("provided admin session code is invalid");
         }
@@ -285,22 +240,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Boolean makeTourGuideInactive(String adminSessionCode, MakeTourGuideInactiveRequest rq) {
 
-        try {
-            if(rq.getUsername().trim().isEmpty()) {
-                log.debug("username cannot be empty");
-                throw new MakeTourGuideInactiveException("username cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getUsername().trim().isEmpty()) {
             log.debug("username cannot be empty");
             throw new MakeTourGuideInactiveException("username cannot be empty");
         }
 
-        try {
-            if(findSessionBySessionCodeSessionStateAndUserType(adminSessionCode, "ACTIVE", "ADMIN") == null){
-                log.debug("provided admin session code is invalid");
-                throw new MakeTourGuideInactiveException("provided admin session code is invalid");
-            }
-        } catch (NullPointerException e) {
+        if(findSessionBySessionCodeSessionStateAndUserType(adminSessionCode, "ACTIVE", "ADMIN") == null){
             log.debug("provided admin session code is invalid");
             throw new MakeTourGuideInactiveException("provided admin session code is invalid");
         }

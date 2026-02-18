@@ -66,22 +66,12 @@ public class TourGuideServiceImpl implements TourGuideService {
     @Override
     public Session signIn(TourGuideSignInRequest rq) {
 
-        try {
-            if(rq.getUsername().trim().isEmpty()) {
-                log.debug("username cannot be empty");
-                throw new TourGuideSignInFailedException("username cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getUsername().trim().isEmpty()) {
             log.debug("username cannot be empty");
             throw new TourGuideSignInFailedException("username cannot be empty");
         }
 
-        try {
-            if(rq.getPassword().trim().isEmpty()) {
-                log.debug("password cannot be empty");
-                throw new TourGuideSignInFailedException("password cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getPassword().trim().isEmpty()) {
             log.debug("password cannot be empty");
             throw new TourGuideSignInFailedException("password cannot be empty");
         }
@@ -119,12 +109,7 @@ public class TourGuideServiceImpl implements TourGuideService {
     @Override
     public Boolean signOut(TourGuideSignOutRequest rq) {
 
-        try {
-            if(rq.getSessionCode().trim().isEmpty()) {
-                log.debug("session code cannot be empty");
-                throw new TourGuideSignOutFailedException("session code cannot be empty");
-            }
-        } catch (NullPointerException e) {
+        if(rq.getSessionCode().trim().isEmpty()) {
             log.debug("session code cannot be empty");
             throw new TourGuideSignOutFailedException("session code cannot be empty");
         }
