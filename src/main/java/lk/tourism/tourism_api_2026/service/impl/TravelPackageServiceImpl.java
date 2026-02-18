@@ -58,19 +58,9 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             throw new TravelPackageNotCreatedException("provided session code is invalid");
         }
 
-        if(rq.getName().trim().isEmpty()) {
-            log.debug("name cannot be empty");
-            throw new TravelPackageNotCreatedException("name cannot be empty");
-        }
-
         if(rq.getPeopleCount() <= 0) {
             log.debug("people count must be greater than 0");
             throw new TravelPackageNotCreatedException("people count must be greater than 0");
-        }
-
-        if(rq.getDuration().trim().isEmpty()) {
-            log.debug("duration cannot be empty");
-            throw new TravelPackageNotCreatedException("duration cannot be empty");
         }
 
         if(rq.getTotalPrice() <= 0) {
@@ -100,36 +90,6 @@ public class TravelPackageServiceImpl implements TravelPackageService {
         }
 
         for(TravelPackageDetailItem item : rq.getVisitingLocations()) {
-
-            try {
-                if(item.getTitle().trim().isEmpty()) {
-                    log.debug("title cannot be empty");
-                    throw new TravelPackageNotCreatedException("title cannot be empty");
-                }
-            } catch (NullPointerException e) {
-                log.debug("title cannot be empty");
-                throw new TravelPackageNotCreatedException("title cannot be empty");
-            }
-
-            try {
-                if(item.getDescription().trim().isEmpty()) {
-                    log.debug("description cannot be empty");
-                    throw new TravelPackageNotCreatedException("description cannot be empty");
-                }
-            } catch (NullPointerException e) {
-                log.debug("description cannot be empty");
-                throw new TravelPackageNotCreatedException("description cannot be empty");
-            }
-
-            try {
-                if(item.getUrl().trim().isEmpty()) {
-                    log.debug("url cannot be empty");
-                    throw new TravelPackageNotCreatedException("url cannot be empty");
-                }
-            } catch (NullPointerException e) {
-                log.debug("url cannot be empty");
-                throw new TravelPackageNotCreatedException("url cannot be empty");
-            }
 
             TravelPackageDetail travelPackageDetail = new TravelPackageDetail(
                     item.getTitle(),

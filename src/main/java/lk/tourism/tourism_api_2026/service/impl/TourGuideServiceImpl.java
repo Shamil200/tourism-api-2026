@@ -66,16 +66,6 @@ public class TourGuideServiceImpl implements TourGuideService {
     @Override
     public Session signIn(TourGuideSignInRequest rq) {
 
-        if(rq.getUsername().trim().isEmpty()) {
-            log.debug("username cannot be empty");
-            throw new TourGuideSignInFailedException("username cannot be empty");
-        }
-
-        if(rq.getPassword().trim().isEmpty()) {
-            log.debug("password cannot be empty");
-            throw new TourGuideSignInFailedException("password cannot be empty");
-        }
-
         if(!GeneralUtilities.isValidUsernameFormat(rq.getUsername())) {
             log.debug("invalid username format provided , username : {}", rq.getUsername());
             throw new TourGuideSignInFailedException("invalid username format provided");
@@ -108,11 +98,6 @@ public class TourGuideServiceImpl implements TourGuideService {
 
     @Override
     public Boolean signOut(TourGuideSignOutRequest rq) {
-
-        if(rq.getSessionCode().trim().isEmpty()) {
-            log.debug("session code cannot be empty");
-            throw new TourGuideSignOutFailedException("session code cannot be empty");
-        }
 
         Session fetchedSession = sessionRepository.findBySessionCode(rq.getSessionCode());
 

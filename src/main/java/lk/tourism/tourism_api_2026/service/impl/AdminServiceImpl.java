@@ -65,16 +65,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void create(CreateAdminRequest rq) {
 
-        if(rq.getUsername().trim().isEmpty()) {
-            log.debug("username cannot be empty , username : {}", rq.getUsername());
-            throw new AdminNotCreatedException("username cannot be empty");
-        }
-
-        if(rq.getPassword().trim().isEmpty()) {
-            log.debug("password cannot be empty , password : {}", rq.getPassword());
-            throw new AdminNotCreatedException("password cannot be empty");
-        }
-
         if(!GeneralUtilities.isValidUsernameFormat(rq.getUsername())) {
             log.debug("invalid username format provided , username : {}", rq.getUsername());
             throw new AdminNotCreatedException("invalid username format provided");
@@ -105,16 +95,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Session signIn(AdminSignInRequest rq) {
-
-        if(rq.getUsername().trim().isEmpty()) {
-            log.debug("username cannot be empty");
-            throw new AdminSignInFailedException("username cannot be empty");
-        }
-
-        if(rq.getPassword().trim().isEmpty()) {
-            log.debug("password cannot be empty");
-            throw new AdminSignInFailedException("password cannot be empty");
-        }
 
         if(!GeneralUtilities.isValidUsernameFormat(rq.getUsername())) {
             log.debug("invalid username format provided , username : {}", rq.getUsername());
@@ -150,11 +130,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Boolean signOut(AdminSignOutRequest rq) {
-
-        if(rq.getSessionCode().trim().isEmpty()) {
-            log.debug("session code cannot be empty");
-            throw new AdminSignOutFailedException("session code cannot be empty");
-        }
 
         Session fetchedSession = sessionRepository.findBySessionCode(rq.getSessionCode());
 
@@ -194,16 +169,6 @@ public class AdminServiceImpl implements AdminService {
             throw new AdminSignOutFailedException("admin session code cannot be empty");
         }
 
-        if(rq.getUsername().trim().isEmpty()) {
-            log.debug("username cannot be empty");
-            throw new TourGuideNotCreatedException("username cannot be empty");
-        }
-
-        if(rq.getPassword().trim().isEmpty()) {
-            log.debug("password cannot be empty");
-            throw new TourGuideNotCreatedException("password cannot be empty");
-        }
-
         if(findSessionBySessionCodeSessionStateAndUserType(adminSessionCode, "ACTIVE", "ADMIN") == null){
             log.debug("provided admin session code is invalid");
             throw new TourGuideNotCreatedException("provided admin session code is invalid");
@@ -239,11 +204,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Boolean makeTourGuideInactive(String adminSessionCode, MakeTourGuideInactiveRequest rq) {
-
-        if(rq.getUsername().trim().isEmpty()) {
-            log.debug("username cannot be empty");
-            throw new MakeTourGuideInactiveException("username cannot be empty");
-        }
 
         if(findSessionBySessionCodeSessionStateAndUserType(adminSessionCode, "ACTIVE", "ADMIN") == null){
             log.debug("provided admin session code is invalid");
