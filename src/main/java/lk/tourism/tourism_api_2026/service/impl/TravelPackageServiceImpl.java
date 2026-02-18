@@ -58,21 +58,6 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             throw new TravelPackageNotCreatedException("provided session code is invalid");
         }
 
-        if(rq.getPeopleCount() <= 0) {
-            log.debug("people count must be greater than 0");
-            throw new TravelPackageNotCreatedException("people count must be greater than 0");
-        }
-
-        if(rq.getTotalPrice() <= 0) {
-            log.debug("total price must be greater than 0");
-            throw new TravelPackageNotCreatedException("total price must be greater than 0");
-        }
-
-        if(rq.getAdmissionPercentage() <= 0) {
-            log.debug("admission percentage must be greater than 0");
-            throw new TravelPackageNotCreatedException("admission percentage must be greater than 0");
-        }
-
         TravelPackage travelPackage = new TravelPackage(
                 rq.getName(),
                 rq.getPeopleCount(),
